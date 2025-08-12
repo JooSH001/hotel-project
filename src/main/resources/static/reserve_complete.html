@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>room standard 예약 페이지</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style_hsf.css">
+    <link rel="stylesheet" href="css/room_info.css">
+    <script src="js/header.js" defer></script>
+    <script src="js/footer.js" defer></script>
+    <link href="assets/css/fontawesome.css" rel="stylesheet"/>
+    <link href="assets/css/brands.css" rel="stylesheet"/>
+    <link href="assets/css/solid.css" rel="stylesheet"/>
+</head>
+<body class="reserve-complete">
+    <my-header></my-header>
+
+    <div class="highlight-section_2">
+        <div class="highlight-content_2">
+            <h2>RESERVATION</h2>
+            <p>실시간예약</p>
+        </div>
+    </div>
+
+    <section id="reser_compl">
+        <h3 class="reser_compl">예약 등록</h3>
+    </section>
+
+    <section class="reservation-content_c">
+        <div class="reservation-form-wrap_c">
+            <div class="form-row_cr">
+                <label>ROOM</label>
+                <div class="input-wrap">
+                    <input type="text" id="summary-room" readonly>
+                </div>
+            </div>
+            <div class="form-row_cr">
+                <label>추가 인원</label>
+                <div class="input-wrap">
+                    <input type="text" id="summary-extra" readonly>
+                </div>
+            </div>
+            <div class="mobile-date-inputs">
+                <div class="input-wrap">
+                    <label>입실</label>
+                    <input type="text" id="mobile-checkin" readonly>
+                </div>
+                <div class="input-wrap">
+                    <label>퇴실</label>
+                    <input type="text" id="mobile-checkout" readonly>
+                </div>
+            </div>
+            <div class="form-row_c">
+                <label>예약자명</label>
+                <div class="input-wrap">
+                    <input type="text" id="reserver-name" placeholder="예약자명을 입력해 주세요.">
+                    <p class="error-message" id="name-error">필수 입력 값입니다.</p>
+                </div>
+            </div>
+            <div class="form-row_c">
+                <label>전화번호</label>
+                <div class="input-wrap">
+                    <input type="text" id="phone-number" placeholder="- 제외하고 입력해 주세요.">
+                    <p class="error-message" id="phone-error">필수 입력 값입니다.</p>
+                </div>
+            </div>
+            <div class="form-row_c total">
+                <label>총 합계</label>
+                <div class="price-box">
+                    <span id="summary-price">-</span>
+                    <span class="unit">원</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="calendar-section" id="calendar-section-wrap">
+            <div id="calendar"></div>
+        </div>
+    </section>
+
+    <div class="button-group-center">
+        <button type="button" onclick="history.back()">취소</button>
+        <button id="reserveBtn" class="reserve-btn">예약하기</button>
+    </div>
+
+    <div id="reserve-modal" class="modal-bg" style="display:none;">
+        <div class="modal-content">
+            <p>예약이 완료되었습니다.</p>
+            <button id="modal-close-btn">확인</button>
+        </div>
+    </div>
+
+    <script src="js/calendar.js" defer></script>
+
+    <my-footer></my-footer>
+
+    <script>
+        const data = JSON.parse(sessionStorage.getItem('reservation'));
+        if (data) {
+            document.getElementById('summary-room').textContent = data.roomName;
+            document.getElementById('summary-extra').textContent = data.extra;
+            document.getElementById('summary-price').textContent = data.totalPrice;
+
+            document.getElementById('mobile-checkin').value = data.checkIn || '';
+            document.getElementById('mobile-checkout').value = data.checkOut || '';
+
+            if ('value' in document.getElementById('summary-room')) {
+                document.getElementById('summary-room').value = data.roomName;
+            }
+            if ('value' in document.getElementById('summary-extra')) {
+                document.getElementById('summary-extra').value = data.extra;
+            }
+
+            window.selectedCheckIn = data.checkIn;
+            window.selectedCheckOut = data.checkOut;
+            window.isReadOnlyMode = true;
+
+            Promise.all([
+                fetch('/api/rooms').then(res => res.json()),
+                fetch('/api/prices').then(res => res.json()),
+                fetch('/api/seasons').then(res => res.json()),
+                fetch('/api/holidays').then(res => res.json()),
+                fetch('/api/reservations').then(res => res.json())
+            ]).then(([rooms, priceList, seasonList, holidayList, reservationList]) => {
+                const room = rooms.find(r => r.name === data.roomName);
+                if (!room) {
+                    console.error("roomName에 해당하는 room이 없음");
+                    return;
+                }
+
+                window.roomId = room.id;
+                window.prices = priceList;
+
+                const reserved = reservationList
+                    .filter(r => (r.room?.id || r.room_id) === room.id)
+                    .flatMap(r => {
+                        const inDate = new Date(r.checkInDate || r.check_in_date);
+                        const outDate = new Date(r.checkOutDate || r.check_out_date);
+                        const dates = [];
+                        for (let d = new Date(inDate); d < outDate; d.setDate(d.getDate() + 1)) {
+                            dates.push(d.toISOString().split('T')[0]);
+                        }
+                        return dates;
+                    });
+
+                const holidays = holidayList.map(h => h.holidayDate || h.holiday_date);
+                const seasons = seasonList;
+
+                const targetDate = new Date(data.checkIn);
+                const targetYear = targetDate.getFullYear();
+                const targetMonth = targetDate.getMonth();
+
+                renderCalendar(targetYear, targetMonth, reserved, holidays, seasons);
+                highlightSelectedRange();
+            });
+
+            function validate() {
+                let valid = true;
+                const nameInput = document.getElementById('reserver-name');
+                const phoneInput = document.getElementById('phone-number');
+                const nameError = document.getElementById('name-error');
+                const phoneError = document.getElementById('phone-error');
+
+                if (!nameInput.value.trim()) {
+                    nameInput.classList.add('error');
+                    nameError.style.display = 'inline';
+                    valid = false;
+                } else {
+                    nameInput.classList.remove('error');
+                    nameError.style.display = 'none';
+                }
+                if (!phoneInput.value.trim()) {
+                    phoneInput.classList.add('error');
+                    phoneError.style.display = 'inline';
+                    valid = false;
+                } else {
+                    phoneInput.classList.remove('error');
+                    phoneError.style.display = 'none';
+                }
+                return valid;
+            }
+
+            document.getElementById('reserveBtn').onclick = function() {
+                if (!validate()) return;
+                showReserveCompleteModal();
+            };
+
+            function showReserveCompleteModal() {
+                document.getElementById('reserve-modal').style.display = 'flex';
+            }
+            document.getElementById('modal-close-btn').onclick = function() {
+                document.getElementById('reserve-modal').style.display = 'none';
+                window.location.href = 'index.html';
+            };
+        }
+
+        document.getElementById('reserveBtn').onclick = function() {
+            if (!validate()) return;
+
+            const data = JSON.parse(sessionStorage.getItem('reservation'));
+            const reserverName = document.getElementById('reserver-name').value;
+            const phoneNumber = document.getElementById('phone-number').value;
+
+            const reservationDto = {
+                roomId: window.roomId,
+                customerName: reserverName,
+                phoneNumber: phoneNumber,
+                checkInDate: window.selectedCheckIn,
+                checkOutDate: window.selectedCheckOut,
+                numberOfGuests: parseInt(data.extra) + 2, // 기본 2명 + 추가 인원
+                totalPrice: parseInt(data.totalPrice.replace(/,/g, ""))
+            };
+
+            fetch('/api/reservations', {
+                method: 'POST',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(reservationDto)
+            })
+            .then(res => {
+                if (!res.ok) throw new Error("예약 실패");
+                return res.json();
+            })
+            .then(result => {
+                showReserveCompleteModal();
+            })
+            .catch(err => {
+                alert("예약 처리 중 오류가 발생했습니다. 다시 시도해 주세요.");
+                console.error(err);
+            });
+        };
+    </script>
+</body>
+</html>

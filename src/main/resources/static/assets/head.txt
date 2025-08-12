@@ -1,0 +1,8 @@
+<head>
+  <link href="/src/assets/css/fontawesome.css" rel="stylesheet"/>
+  <link href="/src/assets/css/brands.css" rel="stylesheet"/>
+  <link href="/src/assets/css/solid.css" rel="stylesheet"/>
+  <link href="/src/assets/css/sharp-thin.css" rel="stylesheet"/>
+  <link href="/src/assets/css/duotone-thin.css" rel="stylesheet"/>
+  <link href="/src/assets/css/sharp-duotone-thin.css" rel="stylesheet"/>
+</head>

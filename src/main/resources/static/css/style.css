@@ -1,0 +1,370 @@
+.section-title {
+  font-size: 28px;
+  font-weight: 600;
+  margin: 50px 0 50px;
+  text-align: center;
+}
+
+.all {
+    top: 0;
+    left: 0;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.6);
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    display: none;
+}
+
+.all .box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 300px;
+}
+
+.highlight-section {
+    background-image: url('../img/home_back_img.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    color: white;
+    text-align: center;
+}
+
+.highlight-content {
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 20px 40px;
+    border-radius: 10px;
+}
+
+.highlight-content h2 {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.highlight-content p {
+    font-size: 18px;
+    font-weight: 200;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.highlight-content .icon {
+    font-size: 40px;
+}
+
+.sms {
+  text-decoration: none;
+  color: black;
+}
+
+.highlight-section_1 {
+    background-image: url('../img/reser_back_img.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    color: white;
+    text-align: center;
+    margin-top: 240px;
+}
+
+.highlight-content_1 h2 {
+    font-size: 50px;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.highlight-content_1 p {
+    font-size: 22px;
+    font-weight: 300;
+    margin: 0;
+}
+
+#reservation-info {
+  max-width: 1300px;
+  padding: 20px;
+  margin: 0px auto 40px auto;
+}
+
+#reservation-info h3 {
+  font-size: 27px;
+  font-weight: 400;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+#reservation-info table {
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+}
+
+#reservation-info th, #reservation-info td {
+  padding: 10px;
+  border: 1px solid #D8D8D8;
+}
+
+#reservation-info td {
+  font-weight: 300;
+  height: 28px;
+  font-size: 14px;
+}
+
+#reservation-table tr:hover {
+  background-color: #D8D8D8;
+}
+
+.reser_th {
+  height: 84px;
+  width: 120px;
+  background-color: #d8d8d8;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.reser_th_1 {
+  height: 84px;
+  width: 360px;
+  background-color: #d8d8d8;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.reser_thh {
+  width: 120px;
+  background-color: #d8d8d8;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.reser-box {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1300px;
+  margin: 0px auto 60px auto;
+}
+
+.note-box_1,
+.note-box_2,
+.note-box_3 {
+  flex: 1;
+  padding: 50px 20px;
+  text-align: center;
+  margin: 0;
+}
+
+.note-box_1,
+.note-box_2 {
+  border-right: 1px solid transparent;
+}
+
+.note-box_1 {
+  background-color: #f5f5f5;
+}
+.note-box_2 {
+  background-color: #E4E4E4;
+}
+.note-box_3 {
+  background-color: #C7C7C7;
+}
+
+.reser-box h2 {
+  font-size: 24px;
+  margin-bottom: 26px;
+  font-weight: 300;
+}
+
+.reser-box p {
+  font-size: 13px;
+  font-weight: 300;
+}
+
+.cancel-box {
+  max-width: 1300px;
+  margin: 0 auto 60px auto;
+  border: 1px solid #D8D8D8;
+}
+
+.cancel-title {
+  background-color: #D8D8D8;
+  padding: 15px 20px;
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.cancel-content {
+  padding: 4px 20px;
+}
+
+.cancel-content p {
+  font-size: 13px;
+  margin-bottom: 12px;
+  font-weight: 300;
+}
+
+.highlight-section_2 {
+    background-image: url('../img/real_time_img.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    color: white;
+    text-align: center;
+    margin-top: 240px;
+}
+
+.highlight-content_2 h2 {
+    font-size: 50px;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.highlight-content_2 p {
+    font-size: 22px;
+    font-weight: 300;
+    margin: 0;
+}
+
+#reservation-info_1 {
+  max-width: 1300px;
+  padding: 20px;
+  margin: 0px auto;
+}
+
+#reservation-info_1 h3 {
+  font-size: 27px;
+  font-weight: 300;
+  text-align: center;
+}
+
+.room-select-section {
+  display: flex;
+  flex-direction: column;
+  max-width: 1300px;
+  margin: 0px auto 60px auto;
+}
+
+.room-box {
+  position: relative;
+  height: 270px;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+  transition: filter 0.3s ease;
+  text-decoration: none;
+}
+
+.room-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+.room-overlay span {
+  color: white;
+  font-size: 60px;
+  font-weight: 400;
+}
+
+.room-box.standard { background-image: url('../img/standard.jpg'); }
+.room-box.deluxe   { background-image: url('../img/deluxe.jpg'); }
+.room-box.premium  { background-image: url('../img/premium.jpg'); }
+.room-box.sweet    { background-image: url('../img/sweet.jpg'); }
+
+.room-box:hover .room-overlay {
+  background-color: rgba(0,0,0,0.5);
+}
+
+.room-box:hover span {
+  transform: scale(1.1);
+  font-weight: 500;
+}
+
+
+
+
+@media (max-width: 1000px) {
+    #reservation-info h3 {
+        font-size: 20px !important;
+        font-weight: 300 !important;
+        margin-bottom: 30px !important;
+    }
+
+    #reservation-info_1 h3 {
+        font-size: 20px !important;
+        font-weight: 300 !important;
+        margin-bottom: 30px !important;
+    }
+
+    .reser-box {
+        flex-direction: column !important;
+        gap: 0px !important;
+        margin: 0 18px 32px 18px !important;
+        max-width: 100%;
+    }
+
+    .note-box_1,
+    .note-box_2,
+    .note-box_3 {
+        padding: 24px 10px;
+        border-right: none !important;
+        border-bottom: 1px solid #ececec;
+        text-align: center;
+    }
+
+    .reser-box .note-box_3 {
+        border-bottom: none;
+    }
+
+    .cancel-box {
+        margin: 0 14px 32px 14px !important;
+        max-width: 100%;
+    }
+
+    #reservation-table {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    #reservation-table table {
+        min-width: 680px;
+        width: max-content;
+        display: block;
+    }
+
+    .room-box {
+        height: 200px !important;
+        margin: 0px 14px !important;
+    }
+
+    .room-overlay span {
+        font-size: 34px !important;
+        font-weight: 500 !important;
+    }
+
+}

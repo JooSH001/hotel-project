@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H hotel</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <link rel="stylesheet" href="css/style_hsf.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/header.js" defer></script>
+    <script src="js/footer.js" defer></script>
+    <link href="assets/css/fontawesome.css" rel="stylesheet"/>
+    <link href="assets/css/brands.css" rel="stylesheet"/>
+    <link href="assets/css/solid.css" rel="stylesheet"/>
+    <style>
+        .ROOMS-slide {
+            width: 400px;
+            height: 300px;
+        }
+
+        .ROOMS-slide img{
+            width: 400px;
+            height: 300px;
+        }
+
+        .EVENT-slide {
+            width: 400px;
+            height: 300px;
+            margin-bottom: 90px;
+            font-weight: 300;
+            cursor: default;
+        }
+
+        .EVENT-slide img{
+            width: 400px;
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <my-header></my-header>
+
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide custom-slide" style="background-image: url('img/banner1.jpg')">
+                    <div class="banner-text">
+                    <h2>URBAN RESORT</h2>
+                    <button>SEE MORE</button>
+                    </div>
+                </div>
+                <div class="swiper-slide custom-slide" style="background-image: url('img/banner2.jpg')">
+                    <div class="banner-text">
+                    <h2>RELAX & RELIEF</h2>
+                    <button>SEE MORE</button>
+                    </div>
+                </div>
+                <div class="swiper-slide custom-slide" style="background-image: url('img/banner3.jpg')">
+                    <div class="banner-text">
+                    <h2>SWEET MOMENT</h2>
+                    <button>SEE MORE</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="swiper-pagination"></div>
+        </div>
+
+        <div class="section-title">ROOMS</div>
+
+        <div class="swiper" id="ROOMS_SW">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide ROOMS-slide">
+                    <img src="img/room1.jpg" alt="room1" onclick="img('room1')">
+                </div>
+                <div class="swiper-slide ROOMS-slide">
+                    <img src="img/room2.jpg" alt="room2" onclick="img('room2')">
+                </div>
+                <div class="swiper-slide ROOMS-slide">
+                    <img src="img/room3.jpg" alt="room3" onclick="img('room3')">
+                </div>
+                <div class="swiper-slide ROOMS-slide">
+                    <img src="img/room4.jpg" alt="room4" onclick="img('room4')">
+                </div>
+                <div class="swiper-slide ROOMS-slide">
+                    <img src="img/room5.jpg" alt="room5" onclick="img('room5')">
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title">EVENT</div>
+
+        <div class="swiper" id="EVENT_SW">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide EVENT-slide">
+                    <img src="img/event1.jpg" alt="event1" onclick="img('event1')">
+                    봄 특가 이벤트
+                </div>
+                <div class="swiper-slide EVENT-slide">
+                    <img src="img/event2.jpg" alt="event2" onclick="img('event2')">
+                    6월 주요행사
+                </div>
+                <div class="swiper-slide EVENT-slide">
+                    <img src="img/event3.jpg" alt="event3" onclick="img('event3')">
+                    새로운 객실을 기대해 주세요.
+                </div>
+                <div class="swiper-slide EVENT-slide">
+                    <img src="img/event4.jpg" alt="event4" onclick="img('event4')">
+                    스파 프로그램 할인
+                </div>
+            </div>
+        </div>
+
+        <div class="all">
+            <img src="" class="box"/>
+        </div>
+
+        <div class="highlight-section">
+            <div class="highlight-content">
+                <i class="fa-solid fa-award icon"></i>
+                <h3>2025 BEST HOTEL</h3>
+                <p>
+                    Can one ever remember love<br>
+                    It's like trying to summon up<br>
+                    the smell of rose sin a cellar.<br>
+                    You might see a rose, but never the perfume.
+                </p>
+            </div>
+        </div>
+
+        <my-footer></my-footer>
+    </div>
+</body>
+</html>
+
+<script>
+    var swiper = new Swiper(".mySwiper", {
+        loop: true,
+        autoplay: {
+            delay: 4000,
+            disabledOnInteraction: false
+        },
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+    });
+
+    function img(value) {
+        const modal = document.querySelector('.all');
+        modal.style.display = 'block';
+
+        const img = modal.querySelector('img');
+        img.src = `img/${value}.jpg`;
+    }
+
+    const modal = document.querySelector('.all');
+    modal.addEventListener('click', e => {
+        if (e.target == modal) modal.style.display = 'none';
+    })
+
+    var swiper2 = new Swiper("#ROOMS_SW", {
+        slidesPerView: 'auto',
+        spaceBetween: 40,
+        freeMode: true,
+
+        slidesOffsetBefore: 40,
+        slidesOffsetAfter: 40
+    });
+
+        var swiper2 = new Swiper("#EVENT_SW", {
+        slidesPerView: 'auto',
+        spaceBetween: 40,
+        freeMode: true,
+
+        slidesOffsetBefore: 40,
+        slidesOffsetAfter: 40
+    });
+</script>
