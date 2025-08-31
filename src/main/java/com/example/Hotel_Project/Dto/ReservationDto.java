@@ -3,20 +3,34 @@ package com.example.Hotel_Project.Dto;
 import com.example.Hotel_Project.Entity.Reservation;
 import com.example.Hotel_Project.Entity.Room;
 import lombok.*;
-
+import jakarta.validation.constraints.*;
 import java.time.LocalDate;
 
 @Getter
 @Setter
 public class ReservationDto {
     private Integer id;
+
+    @NotNull
     private Integer roomId;
+
+    @NotBlank
     private String customerName;
+
+    @NotBlank
     private String phoneNumber;
+
+    @NotNull @FutureOrPresent
     private LocalDate checkInDate;
+
+    @NotNull @Future
     private LocalDate checkOutDate;
-    private int numberOfGuests;
-    private int totalPrice;
+
+    @NotNull @Min(1)
+    private Integer numberOfGuests;
+
+    @NotNull @Min(0)
+    private Integer totalPrice;
 
     // Entity → DTO
     public static ReservationDto fromEntity(Reservation reservation) {
