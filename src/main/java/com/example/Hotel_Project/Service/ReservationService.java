@@ -103,4 +103,9 @@ public class ReservationService {
     }
 
     private int nvl(Integer v) { return v == null ? 0 : v; }
+
+    @Transactional(readOnly = true)
+    public List<Reservation> getReservationsByRoomId(Integer roomId) {
+        return reservationRepository.findByRoom_Id(roomId);
+    }
 }
